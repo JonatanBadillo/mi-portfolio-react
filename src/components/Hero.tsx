@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import jony from '../assets/images/jony.jpg';
 
 const Hero = () => {
   return (
@@ -15,7 +16,7 @@ const Hero = () => {
           <div className="relative inline-block mb-8 animate-float">
             <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-500 rounded-full blur-xl opacity-30 animate-pulse-slow"></div>
             <img
-              src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&q=80&w=300&h=300"
+              src={jony}
               alt="Profile"
               className="relative rounded-full w-48 h-48 object-cover border-4 border-primary-500 shadow-lg shadow-primary-500/20 animate-glow"
             />
