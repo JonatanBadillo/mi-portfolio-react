@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, Code, Coffee, Award, GraduationCap, Brain, Laptop, Server } from 'lucide-react';
+import { Code, Coffee, Award, GraduationCap, Brain, Laptop} from 'lucide-react';
 
 const About = () => {
   return (
@@ -36,12 +36,12 @@ const About = () => {
               <Stat 
                 icon={<Award className="animate-spin-slow" />} 
                 label="Certifications" 
-                value="5+" 
+                value="15+" 
               />
               <Stat 
                 icon={<Code className="animate-pulse-slow" />} 
                 label="Projects" 
-                value="15+" 
+                value="5+" 
               />
               <Stat 
                 icon={<Coffee className="animate-bounce-slow" />} 
@@ -63,11 +63,11 @@ const About = () => {
                 title="Full-Stack Development"
                 description="Creating responsive, dynamic applications with modern frameworks"
               />
-              <CompetencyCard
+              {/* <CompetencyCard
                 icon={<Server />}
                 title="Cloud Computing"
                 description="AWS infrastructure and cloud-native development"
-              />
+              /> */}
               <CompetencyCard
                 icon={<Brain />}
                 title="Machine Learning"
