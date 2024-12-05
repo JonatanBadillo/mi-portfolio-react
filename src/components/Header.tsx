@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, X, Github, Linkedin, Mail, Code, Cpu } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail,Cpu } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -13,7 +13,7 @@ const Header = () => {
             className="text-2xl font-bold flex items-center gap-2 group"
           >
             <Cpu className="text-primary-500 group-hover:rotate-180 transition-transform duration-700" />
-            <span className="text-white">Dev<span className="gradient-text">Portfolio</span></span>
+            <span className="text-white">Jonatan<span className="gradient-text"> Badillo</span></span>
           </a>
           
           <div className="hidden md:flex items-center space-x-8">
@@ -26,8 +26,8 @@ const Header = () => {
           </div>
 
           <div className="hidden md:flex space-x-4">
-            <SocialLink href="https://github.com/yourusername" icon={<Github size={20} />} />
-            <SocialLink href="https://linkedin.com/in/yourusername" icon={<Linkedin size={20} />} />
+            <SocialLink href="https://github.com/JonatanBadillo" icon={<Github size={20} />} />
+            <SocialLink href="https://www.linkedin.com/in/jonatan-badillo-3a12531a8/" icon={<Linkedin size={20} />} />
             <SocialLink href="mailto:jonatanbadillo.19@gmail.com" icon={<Mail size={20} />} />
           </div>
 
