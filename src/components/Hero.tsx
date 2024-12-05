@@ -38,8 +38,8 @@ const Hero = () => {
           </div>
 
           <div className="flex justify-center gap-6 mb-12 animate-slide-up" style={{ animationDelay: '600ms' }}>
-            <SocialLink href="https://github.com/yourusername" icon={<Github />} />
-            <SocialLink href="https://linkedin.com/in/yourusername" icon={<Linkedin />} />
+            <SocialLink href="https://github.com/JonatanBadillo" icon={<Github />} />
+            <SocialLink href="https://www.linkedin.com/in/jonatan-badillo-3a12531a8/" icon={<Linkedin />} />
             <SocialLink href="mailto:jonatanbadillo.19@gmail.com" icon={<Mail />} />
           </div>
 
