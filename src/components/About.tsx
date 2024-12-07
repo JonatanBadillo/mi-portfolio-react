@@ -80,7 +80,7 @@ const About = () => {
               <Stat 
                 icon={<Award className="animate-spin-slow" />} 
                 label="Certifications" 
-                value="15+" 
+                value="9+" 
                 color="text-purple-400"
                 gradient="from-purple-500 to-pink-500"
               />

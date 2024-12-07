@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Database, Brain, Terminal, Sparkles, Star, Rocket, Award, GraduationCap } from 'lucide-react';
+import { Code, Database, Brain, Terminal, Sparkles, Star, Rocket, Award, GraduationCap, Calendar, ArrowRight } from 'lucide-react';
 
 const Skills = () => {
   return (
@@ -64,13 +64,25 @@ const Skills = () => {
           />
         </div>
 
-        <div className="mt-20">
-          <div className="flex items-center justify-center gap-3 mb-12">
-            <GraduationCap className="text-primary-500 animate-bounce-slow" />
+        <div className="mt-20 relative">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 via-purple-500/5 to-blue-500/5 rounded-3xl blur-3xl"></div>
+          
+          <div className="flex items-center justify-center gap-3 mb-12 relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/10 to-primary-500/0 blur-xl"></div>
+            <div className="relative">
+              <GraduationCap className="text-primary-500 animate-bounce-slow" />
+              <Star className="absolute -top-1 -right-1 w-3 h-3 text-primary-400 animate-pulse" />
+            </div>
             <h3 className="text-3xl font-bold text-center group">
-              Professional <span className="gradient-text">Certifications</span>
+              Professional <span className="gradient-text relative inline-block">
+                Certifications
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
+              </span>
             </h3>
-            <Award className="text-primary-500 animate-pulse" />
+            <div className="relative">
+              <Award className="text-primary-500 animate-pulse" />
+              <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-primary-400 animate-spin-slow" />
+            </div>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -114,29 +126,63 @@ const SkillCategory = ({ icon, title, skills }: SkillCategoryProps) => (
   </div>
 );
 
-const CertificationCard = ({ certification, delay }: { certification: string; delay: number }) => (
-  <div 
-    className="glass-card p-6 rounded-xl hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 border border-primary-500/10 hover:border-primary-500/20 group animate-fade-in"
-    style={{ animationDelay: `${delay}ms` }}
-  >
-    <div className="flex items-start gap-3">
-      <div className="relative mt-1">
-        <Award className="text-primary-500 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-        <Star className="absolute -top-1 -right-1 w-3 h-3 text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+const CertificationCard = ({ certification, delay }: { certification: string; delay: number }) => {
+  const [institution, year] = certification.split(' – ').pop()?.split(' (') || ['', ''];
+  const certName = certification.split(' – ')[0];
+  
+  return (
+    <div 
+      className="glass-card p-6 rounded-xl hover:shadow-xl hover:shadow-primary-500/10 transition-all duration-500 border border-primary-500/10 hover:border-primary-500/20 group animate-fade-in transform hover:-translate-y-1"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/20 to-primary-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+        
+        <div className="flex items-start gap-3">
+          <div className="relative mt-1">
+            <div className="relative">
+              <Award className="text-primary-500 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+              <Star className="absolute -top-1 -right-1 w-3 h-3 text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <h4 className="font-semibold text-white group-hover:text-primary-400 transition-colors duration-300">
+              {certName}
+            </h4>
+            <div className="space-y-1">
+              <p className="text-sm text-primary-400 flex items-center gap-2">
+                <GraduationCap className="w-4 h-4" />
+                {institution.replace(')', '')}
+              </p>
+              <p className="text-sm text-gray-400 flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                {year?.replace(')', '')}
+              </p>
+            </div>
+          </div>
+        </div>
+        
+       
       </div>
-      <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-        {certification}
-      </p>
     </div>
-  </div>
-);
+  );
+};
 
 const certifications = [
   'Supervised Machine Learning: Regression and Classification – Stanford University (2024)',
   'Distributed Programming in Java – BUAP (2024)',
   'Data Analytics – IBM (2024)',
-  "CS50's Introduction to Computer Science – Harvard University",
+  "CS50's Introduction to Computer Science – Harvard University (2020)",
   'Introduction to Computer Programming – University of London (2020)',
+  
+
+  'GIT+GitHub: A Complete Version Control System from Scratch – Udemy (2022)',
+  'CONACIC Certificate for the Workshop "Connecting Devices to the Internet of Things" – BUAP (2022)',
+  'CONACIC Certificate for the Workshop "Introduction to Augmented Reality Application Development" – BUAP (2022)',
+  'React and Spring Boot: Create Your First Full Stack Web App – Udemy (2023)',
+
+
 ];
+
 
 export default Skills;
