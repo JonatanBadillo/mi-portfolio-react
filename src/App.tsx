@@ -6,6 +6,7 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
+import ResumeDownload from './components/ResumeDownload';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Experience />
         <Projects />
         <Skills />
+        <ResumeDownload />
         <Contact />
       </main>
       <footer className="bg-dark-800 text-center py-6">
