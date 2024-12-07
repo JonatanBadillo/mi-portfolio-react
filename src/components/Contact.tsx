@@ -1,7 +1,53 @@
-import React from 'react';
-import { Mail, Github, Linkedin, MapPin, Send, Sparkles, MessageSquare, User, ArrowRight } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Mail, Github, Linkedin, MapPin, Send, Sparkles, MessageSquare, User, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formRef.current) return;
+    
+    try {
+      setIsSubmitting(true);
+      setSubmitStatus(null);
+      
+      // Reemplaza estos valores con los tuyos de EmailJS
+      const result = await emailjs.sendForm(
+        'jonatanbadillo',
+        'template_wyru1ek',
+        formRef.current,
+        'TY8Lx5ujx5qAK26Ij'
+      );
+
+      if (result.text === 'OK') {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="section-padding bg-dark-800 relative overflow-hidden py-20">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -76,7 +122,11 @@ const Contact = () => {
             </div>
           </div>
 
-          <form className="glass-card p-8 rounded-2xl space-y-6 border border-primary-500/10 hover:border-primary-500/20 transition-all duration-300">
+          <form 
+            ref={formRef}
+            onSubmit={handleSubmit} 
+            className="glass-card p-8 rounded-2xl space-y-6 border border-primary-500/10 hover:border-primary-500/20 transition-all duration-300"
+          >
             <div>
               <label htmlFor="name" className="block text-gray-300 mb-2 flex items-center gap-2">
                 <User className="w-4 h-4 text-primary-500" />
@@ -85,6 +135,10 @@ const Contact = () => {
               <input
                 type="text"
                 id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
                 className="w-full bg-dark-700/50 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500 border border-primary-500/10 hover:border-primary-500/20 transition-all duration-300"
                 placeholder="Your Name"
               />
@@ -98,6 +152,10 @@ const Contact = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
                 className="w-full bg-dark-700/50 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500 border border-primary-500/10 hover:border-primary-500/20 transition-all duration-300"
                 placeholder="your@email.com"
               />
@@ -110,18 +168,39 @@ const Contact = () => {
               </label>
               <textarea
                 id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
                 rows={5}
                 className="w-full bg-dark-700/50 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary-500 border border-primary-500/10 hover:border-primary-500/20 transition-all duration-300"
                 placeholder="Your message..."
               />
             </div>
 
+            {submitStatus && (
+              <div className={`flex items-center gap-2 ${submitStatus === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                {submitStatus === 'success' ? (
+                  <>
+                    <CheckCircle className="w-5 h-5" />
+                    <span>Message sent successfully!</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertCircle className="w-5 h-5" />
+                    <span>Error sending message. Please try again.</span>
+                  </>
+                )}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-primary-500 to-purple-500 text-white py-3 rounded-lg hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group"
+              disabled={isSubmitting}
+              className="w-full bg-gradient-to-r from-primary-500 to-purple-500 text-white py-3 rounded-lg hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Send Message</span>
-              <Send className="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+              <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+              <Send className={`w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300 ${isSubmitting ? 'animate-pulse' : ''}`} />
             </button>
           </form>
         </div>
